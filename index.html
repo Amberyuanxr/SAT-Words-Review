@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barron's 3500 Vocabulary Trainer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section id="home" class="screen active">
+      <div class="hero">
+        <p class="eyebrow">BARRON'S 3500</p>
+        <h1>Vocabulary Trainer</h1>
+        <p class="subtitle">Choose a range, practice 100 words, and review every mistake.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Choose your range</h2>
+        <div class="range-row">
+          <label>
+            From Unit
+            <select id="startUnit"></select>
+          </label>
+          <span class="dash">—</span>
+          <label>
+            To Unit
+            <select id="endUnit"></select>
+          </label>
+        </div>
+
+        <div class="settings">
+          <label class="check">
+            <input id="shuffleToggle" type="checkbox" checked>
+            <span>Randomize the 100 questions</span>
+          </label>
+        </div>
+
+        <button id="startBtn" class="primary">Start Practice</button>
+        <p id="rangeInfo" class="range-info"></p>
+      </div>
+
+      <div class="panel small">
+        <h3>How it works</h3>
+        <ul>
+          <li>100 words are selected from your chosen unit range.</li>
+          <li>Each question has four meaning choices.</li>
+          <li>After an answer, the correct word/meaning is revealed.</li>
+          <li>At the end, all mistakes are collected for review.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen">
+      <header class="quiz-header">
+        <button id="quitBtn" class="ghost">← Home</button>
+        <div class="progress-wrap">
+          <div class="progress-text">
+            <span id="questionNumber">1</span> / <span id="questionTotal">100</span>
+          </div>
+          <div class="progress-bar"><div id="progressFill"></div></div>
+        </div>
+        <div class="score-badge">✓ <span id="liveScore">0</span></div>
+      </header>
+
+      <div class="quiz-card">
+        <p id="unitLabel" class="unit-label"></p>
+        <h1 id="wordDisplay" class="word"></h1>
+        <p class="instruction">Choose the meaning that matches this word.</p>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback hidden"></div>
+        <button id="nextBtn" class="primary hidden">Next Word →</button>
+      </div>
+    </section>
+
+    <section id="results" class="screen">
+      <div class="hero result-hero">
+        <p class="eyebrow">SESSION COMPLETE</p>
+        <h1 id="resultTitle">Great work!</h1>
+        <div class="accuracy" id="accuracy">0%</div>
+        <p id="resultSummary"></p>
+      </div>
+
+      <div class="result-actions">
+        <button id="retryBtn" class="primary">Practice Again</button>
+        <button id="homeBtn" class="secondary">Choose Another Range</button>
+      </div>
+
+      <div class="panel">
+        <div class="review-heading">
+          <h2>Words to Review</h2>
+          <span id="mistakeCount" class="count-pill">0</span>
+        </div>
+        <div id="mistakes" class="mistakes"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
