@@ -27,29 +27,32 @@ async function loadData() {
 }
 
 function populateUnitSelectors() {
-  for (let i = 1; i <= 50; i++) {
-    const option1 = document.createElement("option");
-    option1.value = i;
-    option1.textContent = `Unit ${i}`;
-    $("startUnit").appendChild(option1);
-
-    const option2 = option1.cloneNode(true);
-    $("endUnit").appendChild(option2);
-  }
-
-  $("startUnit").value = "1";
-  $("endUnit").value = "50";
+  $("startUnit").value = 1;
+  $("endUnit").value = 50;
 }
 
 function updateRangeInfo() {
   let start = Number($("startUnit").value);
   let end = Number($("endUnit").value);
 
+  if (!start || !end) {
+    $("rangeInfo").textContent = "Please enter a unit range from 1 to 50.";
+    return;
+  }
+
+  if (start < 1 || start > 50 || end < 1 || end > 50) {
+    $("rangeInfo").textContent = "Unit must be between 1 and 50.";
+    return;
+  }
+
   if (start > end) {
     [start, end] = [end, start];
   }
 
-  const available = vocabulary.filter(v => v.unit >= start && v.unit <= end).length;
+  const available = vocabulary.filter(
+    v => v.unit >= start && v.unit <= end
+  ).length;
+
   $("rangeInfo").textContent =
     `${available.toLocaleString()} words available in Units ${start}–${end}.`;
 }
@@ -73,16 +76,35 @@ function startSession() {
   let start = Number($("startUnit").value);
   let end = Number($("endUnit").value);
 
-  if (start > end) [start, end] = [end, start];
+  if (
+    !Number.isInteger(start) ||
+    !Number.isInteger(end) ||
+    start < 1 ||
+    start > 50 ||
+    end < 1 ||
+    end > 50
+  ) {
+    alert("Please enter a valid Unit range from 1 to 50.");
+    return;
+  }
 
-  const pool = vocabulary.filter(v => v.unit >= start && v.unit <= end);
+  if (start > end) {
+    [start, end] = [end, start];
+  }
+
+  const pool = vocabulary.filter(
+    v => v.unit >= start && v.unit <= end
+  );
 
   if (!pool.length) {
     alert("No words were found in this range.");
     return;
   }
 
-  const selected = $("shuffleToggle").checked ? shuffle(pool) : [...pool];
+  const selected = $("shuffleToggle").checked
+    ? shuffle(pool)
+    : [...pool];
+
   session = {
     questions: selected.slice(0, Math.min(100, selected.length)),
     current: 0,
@@ -94,10 +116,10 @@ function startSession() {
   };
 
   $("questionTotal").textContent = session.questions.length;
+
   showScreen("quiz");
   renderQuestion();
 }
-
 function makeOptions(correct) {
   // Four choices are meanings/definitions, each belonging to a real word.
   // The correct choice is always the current word's meaning.
