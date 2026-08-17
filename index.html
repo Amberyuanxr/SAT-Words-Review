@@ -17,17 +17,33 @@
 
       <div class="panel">
         <h2>Choose your range</h2>
-        <div class="range-row">
-          <label>
-            From Unit
-            <select id="startUnit"></select>
-          </label>
-          <span class="dash">—</span>
-          <label>
-            To Unit
-            <select id="endUnit"></select>
-          </label>
-        </div>
+       <div class="range-row">
+  <label>
+    From Unit
+    <input
+      id="startUnit"
+      type="number"
+      min="1"
+      max="50"
+      value="1"
+      placeholder="1"
+    >
+  </label>
+
+  <span class="dash">—</span>
+
+  <label>
+    To Unit
+    <input
+      id="endUnit"
+      type="number"
+      min="1"
+      max="50"
+      value="50"
+      placeholder="50"
+    >
+  </label>
+</div>
 
         <div class="settings">
           <label class="check">
